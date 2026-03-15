@@ -15,8 +15,11 @@ jobs:
 
       - name: Build APK
         run: |
-          # Yahan hum direct buildozer chalayenge
-          ~/.local/bin/buildozer -v android debug
+          # Ye line khud hi saare Android licenses ko 'Yes' kar degi
+          yes | buildozer -v android debug
+        env:
+          # Buildozer ko batana ke hum root par hi kaam kar rahe hain
+          BUILDOZER_WARN_ON_ROOT: 1
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
