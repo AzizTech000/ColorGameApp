@@ -8,8 +8,8 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Build with Buildozer
-        # Yahan 'ArtemSerebriakov' ka A aur S capital hona chahiye
-        uses: ArtemSerebriakov/buildozer-action@v1.6.1
+        # Humne action badal diya hai jo zyada stable hai
+        uses: Akuli/buildozer-action@v1.2.0
         with:
           buildozer_version: master
           command: android debug
