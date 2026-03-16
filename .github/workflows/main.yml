@@ -3,23 +3,16 @@ on: [push, workflow_dispatch]
 
 jobs:
   build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Dependencies
-        run: |
-          sudo apt update
-          sudo apt install -y git zip unzip openjdk-17-jdk python3-pip autoconf libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 cmake libffi-dev libssl-dev
-          pip3 install --user buildozer cython==0.29.33
-
-      - name: Build APK
-        run: |
-          # Ye line khud hi saare Android licenses ko 'Yes' kar degi
-          yes | buildozer -v android debug
-        env:
-          # Buildozer ko batana ke hum root par hi kaam kar rahe hain
-          BUILDOZER_WARN_ON_ROOT: 1
+      - name: Build with Buildozer Docker
+        # Ye official Kivy Docker image use karega jisme sab pehle se set hai
+        uses: kivy/buildozer-action@master
+        with:
+          command: android debug
+          buildozer_version: stable
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
